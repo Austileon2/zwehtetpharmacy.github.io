@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zwe Htet Pharmacy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Pyidaungsu', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f9fc;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a75bc 0%, #0a4299 100%);
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+        }
+        
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .products {
+            flex: 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .order-form {
+            flex: 1;
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            align-self: flex-start;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .order-form h2 {
+            color: #1a75bc;
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f7fd;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-image {
+            height: 180px;
+            background: linear-gradient(45deg, #64b5f6, #1976d2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            color: #1a75bc;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .product-info p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .product-price {
+            color: #e53935;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .product-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            background: #1a75bc;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity {
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .add-to-cart {
+            background: #43a047;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background: #2e7d32;
+        }
+        
+        .cart-items {
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-align: right;
+            margin: 20px 0;
+            color: #e53935;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 12px;
+            background: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .checkout-btn:hover {
+            background: #f57c00;
+        }
+        
+        .customer-info {
+            margin-top: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        
+        footer {
+            background: #1a75bc;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-content p {
+            margin: 10px 0;
+        }
+        
+        .social-icons {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            transform: scale(1.2);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .products {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-mortar-pestle"></i>
+            <h1>Zwe Htet Pharmacy</h1>
+        </div>
+        <p> ကောင်းမွန်သောဆေး၀ါး</p>
+    </header>
+
+    <div class="container">
+        <section class="products">
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-pills"></i>
+                </div>
+                <div class="product-info">
+                    <h3>Paracetamol</h3>
+                    <p>ခေါင်းကိုက်၊ ကိုယ်ပူချိန်ကျဆေး</p>
+                    <div class="product-price">1,500 Kyat</div>
+                    <div class="product-controls">
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus" data-id="1">-</button>
+                            <span class="quantity" data-id="1">0</span>
+                            <button class="quantity-btn plus" data-id="1">+</button>
+                        </div>
+                        <button class="add-to-cart" data-id="1" data-name="Paracetamol" data-price="1500">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-pills"></i>
+                </div>
+                <div class="product-info">
+                    <h3>Amoxicillin</h3>
+                    <p>ပဋိဇီ၀ပိုးသတ်ဆေး</p>
+                    <div class="product-price">3,000 Kyat</div>
+                    <div class="product-controls">
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus" data-id="2">-</button>
+                            <span class="quantity" data-id="2">0</span>
+                            <button class="quantity-btn plus" data-id="2">+</button>
+                        </div>
+                        <button class="add-to-cart" data-id="2" data-name="Amoxicillin" data-price="3000">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-first-aid"></i>
+                </div>
+                <div class="product-info">
+                    <h3>Bandages</h3>
+                    <p>ဒဏ်ရာပတ်တီးစ</p>
+                    <div class="product-price">2,500 Kyat</div>
+                    <div class="product-controls">
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus" data-id="3">-</button>
+                            <span class="quantity" data-id="3">0</span>
+                            <button class="quantity-btn plus" data-id="3">+</button>
+                        </div>
+                        <button class="add-to-cart" data-id="3" data-name="Bandages" data-price="2500">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-prescription-bottle-alt"></i>
+                </div>
+                <div class="product-info">
+                    <h3>Vitamin C</h3>
+                    <p>ကိုယ်ခံအားစနစ်မြှင့်တင်ဆေး</p>
+                    <div class="product-price">4,000 Kyat</div>
+                    <div class="product-controls">
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus" data-id="4">-</button>
+                            <span class="quantity" data-id="4">0</span>
+                            <button class="quantity-btn plus" data-id="4">+</button>
+                        </div>
+                        <button class="add-to-cart" data-id="4" data-name="Vitamin C" data-price="4000">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-allergies"></i>
+                </div>
+                <div class="product-info">
+                    <h3>Antihistamine</h3>
+                    <p>ဓာတ်မတည့်မှုကုသဆေး</p>
+                    <div class="product-price">3,200 Kyat</div>
+                    <div class="product-controls">
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus" data-id="5">-</button>
+                            <span class="quantity" data-id="5">0</span>
+                            <button class="quantity-btn plus" data-id="5">+</button>
+                        </div>
+                        <button class="add-to-cart" data-id="5" data-name="Antihistamine" data-price="3200">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-syringe"></i>
+                </div>
+                <div class="product-info">
+                    <h3>Pain Relief Gel</h3>
+                    <p>ကြွက်သားကိုက်ခဲမှုလိမ်းဆေး</p>
+                    <div class="product-price">5,500 Kyat</div>
+                    <div class="product-controls">
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus" data-id="6">-</button>
+                            <span class="quantity" data-id="6">0</span>
+                            <button class="quantity-btn plus" data-id="6">+</button>
+                        </div>
+                        <button class="add-to-cart" data-id="6" data-name="Pain Relief Gel" data-price="5500">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="order-form">
+            <h2>Your Order</h2>
+            <div class="cart-items" id="cart-items">
+                <p class="empty-cart">Your cart is empty</p>
+            </div>
+            <div class="cart-total" id="cart-total">Total: 0 Kyat</div>
+            
+            <div class="customer-info">
+                <h3>Customer Information</h3>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" rows="3" placeholder="Enter your address"></textarea>
+                </div>
+            </div>
+            
+            <button class="checkout-btn" id="checkout-btn">Place Order</button>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Zwe Htet Pharmacy. All rights reserved.</p>
+            <p> ကောင်းမွန်သောဆေး၀ါး</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-viber"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cart data
+            let cart = [];
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            
+            // Quantity controls
+            document.querySelectorAll('.quantity-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const quantityElement = document.querySelector(.quantity[data-id="${id}"]);
+                    let quantity = parseInt(quantityElement.textContent);
+                    
+                    if (this.classList.contains('plus')) {
+                        quantity++;
+                    } else if (this.classList.contains('minus') && quantity > 0) {
+                        quantity--;
+                    }
+                    
+                    quantityElement.textContent = quantity;
+                });
+            });
+            
+            // Add to cart
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const name = this.getAttribute('data-name');
+                    const price = parseInt(this.getAttribute('data-price'));
+                    const quantity = parseInt(document.querySelector(.quantity[data-id="${id}"]).textContent);
+                    
+                    if (quantity === 0) {
+                        alert('Please select at least 1 quantity');
+                        return;
+                    }
+                    
+                    // Check if product already in cart
+                    const existingItemIndex = cart.findIndex(item => item.id === id);
+                    
+                    if (existingItemIndex !== -1) {
+                        // Update quantity if already in cart
+                        cart[existingItemIndex].quantity += quantity;
+                    } else {
+                        // Add new item to cart
+                        cart.push({
+                            id,
+                            name,
+                            price,
+                            quantity
+                        });
+                    }
+                    
+                    // Reset quantity display
+                    document.querySelector(.quantity[data-id="${id}"]).textContent = '0';
+                    
+                    updateCart();
+                });
+            });
+            
+            // Update cart display
+            function updateCart() {
+                if (cart.length === 0) {
+                    cartItems.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+                    cartTotal.textContent = 'Total: 0 Kyat';
+                    return;
+                }
+                
+                let cartHTML = '';
+                let total = 0;
+                
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    cartHTML += 
+                        <div class="cart-item">
+                            <div>${item.name} x${item.quantity}</div>
+                            <div>${itemTotal.toLocaleString()} Kyat</div>
+                        </div>
+                    ;
+                });
+                
+                cartItems.innerHTML = cartHTML;
+                cartTotal.textContent = Total: ${total.toLocaleString()} Kyat;
+            }
+            
+            // Checkout
+            checkoutBtn.addEventListener('click', function() {
+                if (cart.length === 0) {
+                    alert('Your cart is empty. Please add some products.');
+                    return;
+                }
+                
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const address = document.getElementById('address').value;
+                
+                if (!name  !phone  !address) {
+                    alert('Please fill in all customer information fields.');
+                    return;
+                }
+                
+                // In a real application, you would send this data to a server
+                alert(Thank you for your order, ${name}! Your order has been placed successfully. We will contact you at ${phone} for confirmation.);
+                
+                // Reset cart and form
+                cart = [];
+                updateCart();
+                document.getElementById('name').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('address').value = '';
+            });
+        });
+    </script>
+</body>
+</html>
